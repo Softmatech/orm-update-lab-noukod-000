@@ -9,8 +9,8 @@ attr_reader :id
 
 def initialize(id=nil,name,grade)
   @id = id
-  @name = name
-  @grade = grade
+  self.name = name
+  self.grade = grade
 end
 
 def self.create_table
