@@ -30,14 +30,30 @@ def self.create_table
     DB[:conn].execute(sql)
   end
 
-  def save
-      sql = <<-SQL
-        INSERT INTO songs (name, grade)
-        VALUES (?, ?)
-      SQL
+  def update
+    sql = <<-SQL
+      update students
+        set name = ?,
+           grade = ?
+      where id = ?
+    SQL
 
-      DB[:conn].execute(sql, self.name, self.grade)
-      # @id = DB[:conn].execute("SELECT last_insert_rowid() FROM songs")[0][0]
+    DB[:conn].execute(sql, self.name, self.grade, self.id)
+  end
+
+  def save
+      if self.id
+          self.update
+      else
+        sql = <<-SQL
+          Insert into students (name, grade) values (?, ?)
+        SQL
+
+        DB[:conn].execute(sql, self.name, self.grade)
+        @id = DB[:conn].execute("Select last_insert_rowid() from students").flatten.first
+      end
     end
+
+
 
 end
