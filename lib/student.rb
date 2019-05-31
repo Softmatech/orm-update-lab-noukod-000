@@ -33,7 +33,7 @@ def self.create_table
   def save
       sql = <<-SQL
         INSERT INTO songs (name, grade)
-        VALUES (?, ?) on DUPLICATE KEY UPDATE grade = ?
+        VALUES (?, ?)
       SQL
 
       DB[:conn].execute(sql, self.name, self.grade)
