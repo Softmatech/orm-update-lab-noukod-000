@@ -35,7 +35,7 @@ def self.create_table
         INSERT INTO songs (name, grade)
         VALUES (?, ?) on DUPLICATE KEY UPDATE grade = ?
       SQL
-   
+
       DB[:conn].execute(sql, self.name, self.grade)
       # @id = DB[:conn].execute("SELECT last_insert_rowid() FROM songs")[0][0]
     end
